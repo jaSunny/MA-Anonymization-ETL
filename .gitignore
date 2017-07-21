@@ -1,0 +1,17 @@
+*.log
+*.data
+*.gz
+*.csv
+*.png
+*.pstats
+*.dat
+*.xlsx
+__pycache__
+*.txt
+credentials.json
+output/scores.txt
+output/timing.txt
+output/treatment.txt
+output/size.txt
+*dump.rdb
+cache/*.txt
