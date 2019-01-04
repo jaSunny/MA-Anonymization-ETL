@@ -609,7 +609,13 @@ def treat_quasi_identifier_combination(combination, colnames_popularity_sorted):
     # choose suppression if cardinality respects given thresholds or if column is string based (categorical) and cardinality is too low for compartmentation
     if treatment_type == "suppression":
         amount_of_altered_rows = suppress_combination(representatives, colname_for_treatment)
-        logging.info("---> Suppressing {0}/{1} ({2}%) values in column {3}".format(amount_of_altered_rows, series_length,math.ceil(amount_of_altered_rows/series_length*100), colname_for_treatment))
+        # TODO: handle rare cases where amount_of_altered_rows==0, select another colname_for_treatment and go to loop
+        if amount_of_altered_rows != 0 and series_length != 0:
+            percentage = math.ceil(amount_of_altered_rows/series_length*100)
+        else:
+            percentage = 0
+
+        logging.info("---> Suppressing {0}/{1} ({2}%) values in column {3}".format(amount_of_altered_rows, series_length, percentage, colname_for_treatment))
 
     elif treatment_type == "generalization":
         # executing the generalization for the already selected column
