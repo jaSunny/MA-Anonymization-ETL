@@ -587,7 +587,7 @@ def treat_quasi_identifier_combination(combination, colnames_popularity_sorted):
     shall be treated. How to treat the selected column and executing
     the treatment.
     """
-    representatives = df.groupby(resolve_id_mapping_combinations(combination), sort=False).size().reset_index().rename(columns={0:'count'})
+    representatives = df.fillna(-1).groupby(resolve_id_mapping_combinations(combination), sort=False).size().reset_index().rename(columns={0:'count'})
     quasi_identifier_coverage = representatives.loc[representatives['count']==1]['count'].count()
 
     # sip the combination if it is already resolved and no unique rows are left
