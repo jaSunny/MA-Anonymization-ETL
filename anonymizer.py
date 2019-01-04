@@ -783,7 +783,7 @@ def identify_1st_identifier(colname):
     include an error rate for null values etc.
     """
     global statistics
-    representatives = df.groupby(colname, sort=False).size().reset_index().rename(columns={0:'count'})
+    representatives = df.fillna(-1).groupby(colname, sort=False).size().reset_index().rename(columns={0:'count'})
     unique_entries = representatives.loc[representatives['count']==1]['count'].count()
     coverage_of_uniques = unique_entries / ( len(df.index) - df[colname].isnull().sum() )
 
